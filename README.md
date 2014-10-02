@@ -1,7 +1,7 @@
-browser-ls - Lightweight localStorage. 
+browser-ls
 =======
 
-ls provides a nice node-like wrapper on the localStorage API in browsers. It 
+browser-ls provides a nice node-like wrapper on the localStorage API in browsers. It 
 handles potential localStorage exceptions for you, plus 
 it's only 3KB minified!
 
@@ -31,7 +31,7 @@ You can also just drop a file from the _dist/_ folder here into your project.
 
 
 ```javascript
-var ls = require('ls-browser');
+var ls = require('browser-ls');
 
 // If you're not Browserify-ing you can use:
 // var ls = window.ls ;
@@ -48,12 +48,42 @@ ls.setJson('somejson', {
 			if (err) {
 				alert('Failed to get item from localStorage')
 			} else {
-				alert('We get some JSON from localStorage');
+				alert('We stored and retrieved JSON from localStorage!');
+				alert('Result: ' + JSON.stringify(json));
 			}
 		});
 	}
 });
 
+```
+
+Because this module uses a standard Node callback pattern if you like neater 
+code the above could be written like so:
+
+```javascript
+var async = require('async'),
+	ls = require('browser-ls');
+
+var STORAGE_KEY = 'somejson'
+
+async.series([
+	function writeToLs (cb) {
+		ls.setJson(STORAGE_KEY, {
+			name: 'Bruce Wayne',
+			aka: 'Batman'
+		}, cb);
+	}, 
+	function readFromLs (cb) {
+		ls.getJson(STORAGE_KEY, cb);
+	}
+], function (err, res) {
+	if (err) {
+		alert('Something went wrong...');
+	} else {
+		alert('We stored and retrieved JSON from localStorage!');
+		alert('Result: ' + JSON.stringify(res.readFromLs));
+	}
+})
 ```
 
 ## Browser Support
