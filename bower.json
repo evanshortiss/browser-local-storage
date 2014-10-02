@@ -2,7 +2,7 @@
   "name": "browser-ls",
   "main": "./dist/ls.js",
   "description": "Tiny wrapper for localStorage (DOM Storage) that handles exceptions via callbacks",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "authors": [
     "Evan Shortiss"
   ],
