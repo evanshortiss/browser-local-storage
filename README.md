@@ -66,17 +66,17 @@ var async = require('async'),
 
 var STORAGE_KEY = 'somejson'
 
-async.series([
-	function writeToLs (cb) {
+async.series({
+	writeToLs: function (cb) {
 		ls.setJson(STORAGE_KEY, {
 			name: 'Bruce Wayne',
 			aka: 'Batman'
 		}, cb);
 	}, 
-	function readFromLs (cb) {
+	readFromLs: function (cb) {
 		ls.getJson(STORAGE_KEY, cb);
 	}
-], function (err, res) {
+}, function (err, res) {
 	if (err) {
 		alert('Something went wrong...');
 	} else {
