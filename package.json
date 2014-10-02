@@ -1,0 +1,35 @@
+{
+  "name": "browser-ls",
+  "version": "0.0.0",
+  "description": "Tiny wrapper for localStorage (DOM Storage) that handles exceptions via callbacks",
+  "main": "./index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "keywords": [
+    "localStorage",
+    "local",
+    "storage",
+    "browswer",
+    "wrapper"
+  ],
+  "author": "Evan Shortiss",
+  "license": "MIT",
+  "dependencies": {
+    "safejson": "~1.0.0"
+  },
+  "devDependencies": {
+    "linelint": "0.0.3",
+    "lintspaces-cli": "0.0.4",
+    "jshint": "~2.5.6",
+    "browserify": "~5.12.1",
+    "uglify-js": "~2.4.15",
+    "karma": "~0.12.24",
+    "karma-chai": "~0.1.0",
+    "karma-mocha": "~0.1.9",
+    "karma-chrome-launcher": "~0.1.3",
+    "karma-mocha-reporter": "~0.3.1",
+    "karma-safari-launcher": "~0.1.1",
+    "karma-firefox-launcher": "~0.1.3"
+  }
+}
