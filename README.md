@@ -118,7 +118,6 @@ ls.get('SOME_KEY', function (err, result) {
 	} else {
 		// WOO-HOO!
 	}
-	}
 });
 
 ```
