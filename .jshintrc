@@ -1,5 +1,13 @@
 {
-  "globals": {},
+  "globals": {
+    "describe": true,
+    "describe": true,
+    "it": true,
+    "afterEach": true,
+    "beforeEach": true,
+    "chai": true,
+    "sinon": true
+  },
   "curly": true,
   "camelcase": false,
   "evil": false,

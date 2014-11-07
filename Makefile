@@ -14,7 +14,7 @@ build:format
 	$(uglifyjs) -m -c -o ./dist/ls.min.js ./dist/ls.js
 	@echo "Build succeeded!\n"
 
-test:
+test:build
 	$(karma) start
 
 format:

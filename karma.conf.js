@@ -3,7 +3,7 @@
 module.exports = function(config) {
   config.set({
 
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
     files: [
       './dist/ls.js',
@@ -18,7 +18,7 @@ module.exports = function(config) {
 
     autoWatch: false,
 
-    browsers: ['Chrome', 'Safari', 'Firefox'],
+    browsers: ['PhantomJS'],
 
     singleRun: true
   });

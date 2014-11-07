@@ -1,8 +1,8 @@
 browser-ls
 =======
 
-browser-ls provides a nice node-like wrapper on the localStorage API in browsers. It 
-handles potential localStorage exceptions for you, plus 
+browser-ls provides a nice node-like wrapper on the localStorage API in 
+browsers. It handles potential localStorage exceptions for you, plus 
 it's only 3KB minified!
 
 It handles exceptions internally via try catch blocks and will return errors in 
@@ -105,18 +105,59 @@ All callbacks receive an error as the first parameter which will be null if no
 error occured. All methods that retreive an item take a second parameter that 
 is the result.
 
-#### set(key, string, callback)
-Set a string value in localStorage.
-
-#### setJson(key, object, callback)
-Write a JSON object to localStorage.
-
 #### get(key, callback)
 Get a string value from localStorage.
+
+```javascript
+
+var ls = require('browser-ls');
+
+ls.get('SOME_KEY', function (err, result) {
+	if (err) {
+		// DARN!
+	} else {
+		// WOO-HOO!
+	}
+	}
+});
+
+```
 
 #### getJson(key, callback)
 Get an Object from localStorage.
 
-#### remove(key, callback)
+#### set(key, string[, callback])
+Set a string value in localStorage.
+
+#### setJson(key, object[, callback])
+Write a JSON object to localStorage.
+
+#### remove(key[, callback])
 Remove an object from localStorage.
 
+#### getAdapter (name)
+This will get a localStorage interface that stores data under the given key 
+name to avoid clashes. It has all the standard API methods. 
+
+For example:
+
+```javascript
+
+var ls = require('browser-ls');
+
+var Users = ls.getAdapter('Users');
+
+Users.set('KEY', 'some value');
+ls.set('KEY', 'another value');
+
+Users.get('KEY', function (err, res) {
+	// res will equal 'some value'
+});
+ls.get('KEY' function (err, res) {
+	// res will equal 'another value'
+});
+
+```
+
+Using a single instance to do this would have overwritten the Users value with 
+that of the plain ls interface.
