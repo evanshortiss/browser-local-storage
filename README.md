@@ -1,6 +1,9 @@
 browser-ls
 =======
 
+[![build-status](https://travis-ci.org/evanshortiss/browser-local-storage.svg?branch=master)
+](https://travis-ci.org/evanshortiss/browser-local-storage.svg?branch=master)
+
 browser-ls provides a nice node-like wrapper on the localStorage API in 
 browsers. It handles potential localStorage exceptions for you, plus 
 it's only 3KB minified!
