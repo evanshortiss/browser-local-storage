@@ -13,3 +13,7 @@ module.exports.getAdapter = function getAdapter (name) {
     return adapters[name];
   }
 };
+
+module.exports.clearAdapters = function clearAdapters () {
+  adapters = {};
+};

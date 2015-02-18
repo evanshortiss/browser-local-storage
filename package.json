@@ -1,6 +1,6 @@
 {
   "name": "browser-ls",
-  "version": "1.1.1",
+  "version": "1.1.11",
   "description": "Tiny wrapper for localStorage (DOM Storage) that handles exceptions via callbacks",
   "main": "./index.js",
   "scripts": {
