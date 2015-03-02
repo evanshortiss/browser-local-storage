@@ -1,19 +1,9 @@
 'use strict';
 
-var LS = require('./lib/LocalStorage')
-  , adapters = {};
+var LS = require('./lib/LocalStorage');
 
 module.exports = new LS();
 
 module.exports.getAdapter = function getAdapter (name) {
-  if (adapters[name]) {
-    return adapters[name];
-  } else {
-    adapters[name] = new LS(name);
-    return adapters[name];
-  }
-};
-
-module.exports.clearAdapters = function clearAdapters () {
-  adapters = {};
+  return new LS(name);
 };

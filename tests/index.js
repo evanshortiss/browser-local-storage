@@ -99,13 +99,6 @@ describe('ls Module', function () {
         expect(instance.getNs()).to.be.a('string');
         expect(instance.getNs()).to.equal('Tester');
       });
-
-      it ('Should create a single instance of an adapter ns only', function () {
-        var instanceOne = ls.getAdapter('Custom');
-        var instanceTwo = ls.getAdapter('Custom');
-
-        expect(instanceOne).to.equal(instanceTwo);
-      });
     });
   });
 
