@@ -21,6 +21,9 @@ describe('ls Module', function () {
     localStorage.removeItem(TEST_OBJ_KEY);
   });
 
+  beforeEach(function () {
+    window.localStorage.clear();
+  });
 
   describe('ls Object', function () {
     it('Should be defined on window', function () {
@@ -103,6 +106,29 @@ describe('ls Module', function () {
   });
 
 
+  describe('#getKeys', function () {
+    beforeEach(function () {
+      window.localStorage.clear();
+    });
+
+    it('Should return an empty array', function () {
+      var keys = ls.getAdapter('ABC').getKeys();
+      expect(keys).to.be.an('Array');
+      expect(keys).to.have.length(0);
+    });
+
+    it('Should return a single key', function (done) {
+      ls.getAdapter('ABC').set(TEST_STR, TEST_STR, function (err) {
+        expect(err).to.be.null;
+
+        var keys = ls.getAdapter('ABC').getKeys();
+        expect(keys).to.be.an('Array');
+        expect(keys).to.have.length(1);
+        done();
+      });
+    });
+  });
+
   describe('#get', function () {
     it('Should try get an item not in localStorage', function () {
       ls.get(TEST_STR_KEY, function (err, res) {
@@ -157,6 +183,22 @@ describe('ls Module', function () {
     });
   });
 
+  describe('#clear', function () {
+    it('Should clear keys that have been added', function (done) {
+      var adapter = ls.getAdapter('Clear Test');
+
+      adapter.set(TEST_STR, TEST_STR, function (err) {
+        expect(err).to.be.null;
+        expect(adapter.getKeys()).to.have.length(1);
+
+        adapter.clear(function (clearErr) {
+          expect(clearErr).to.be.null;
+          expect(adapter.getKeys()).to.have.length(0);
+          done();
+        });
+      });
+    });
+  });
 
   describe('#setJson', function () {
     it ('Should set a JSON object and retreive it', function () {
