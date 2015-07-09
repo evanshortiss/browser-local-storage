@@ -2,7 +2,8 @@ browser-ls
 =======
 
 [![build-status](https://travis-ci.org/evanshortiss/browser-local-storage.svg?branch=master)
-](https://travis-ci.org/evanshortiss/browser-local-storage.svg?branch=master)
+](https://travis-ci.org/evanshortiss/browser-local-storage.svg?branch=master)[![version](https://badge.fury.io/js/browser-ls.svg)
+](https://badge.fury.io/js/browser-ls.svg)
 
 browser-ls provides a nice node-like wrapper on the localStorage API in 
 browsers. It handles potential localStorage exceptions for you, plus 
@@ -163,3 +164,70 @@ ls.get('KEY' function (err, res) {
 
 Using a single instance to do this would have overwritten the Users value with 
 that of the plain ls interface.
+
+_getAdapter_ also has more advanced usage and supports pre-save and post-load 
+transforms. These are useful if you need to store encrypted data or performs 
+modification of data prior to saving. Here's an example"
+
+```javascript
+var ls = require('browser-ls');
+var encryption = require('./encryption');
+var userId = 'user-1234';
+
+var Users = ls.getAdapter({
+	ns: 'Users', // Store data under this namespace
+	preSave: doEncrypt,
+	postLoad: doDecrypt
+});
+
+function doEncrypt (val, callback) {
+	// val is the value passed to the .set method below
+	encryption.encrypt(val, function (err, encryptedVal) {
+		if (err) {
+			callback(err, null);
+		} else {
+			// Send the updated value to the callback to be saved
+			callback(null, encryptedVal)
+		}
+	});
+}
+
+function doEncrypt (val, callback) {
+	// val is the value that the module got from localStorage 
+	// in this case it is the encrypted value of:
+	// '{"name":"evan","location":"USA"}''
+	encryption.decrypt(val, function (err, decryptedVal) {
+		if (err) {
+			callback(err, null);
+		} else {
+			// Send the updated value to the callback to be loaded
+			callback(null, decryptedVal)
+		}
+	});
+}
+
+// This JSON string being saved will be encrypted by preSave
+Users.set(userId, JSON.stringify({
+	name: 'evan',
+	location: 'USA'
+}));
+
+
+// The value we get will automatically be decrpyted
+Users.get(userId, function (err, user) {
+	// user object will be equal to the originally saved data
+});
+```
+
+In the above examples you could replace _set_ and _get_ with _setJson_ and 
+_getJson_ and the encryption would still work since the pre and post functions 
+are called directly before the safe after the JSON is stringified (set) and 
+before it's parsed (get).
+
+## Changelog
+
+#### 1.4.0
+Added support for pre-save and post-load transforms.
+
+#### pre 1.4.0
+Not documented...

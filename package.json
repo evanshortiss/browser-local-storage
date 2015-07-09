@@ -1,11 +1,12 @@
 {
   "name": "browser-ls",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Tiny wrapper for localStorage (DOM Storage) that handles exceptions via callbacks",
   "main": "./index.js",
   "scripts": {
     "test": "make test"
   },
+  "repository": "https://github.com/evanshortiss/browser-local-storage",
   "keywords": [
     "localStorage",
     "local",
@@ -31,7 +32,6 @@
     "karma-mocha-reporter": "~0.3.1",
     "karma-phantomjs-launcher": "~0.1.4",
     "sinon": "~1.11.1",
-    "karma-sinon": "~1.0.3",
-    "karma-chrome-launcher": "~0.1.5"
+    "karma-sinon": "~1.0.3"
   }
 }

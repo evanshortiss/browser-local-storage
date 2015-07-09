@@ -13,6 +13,11 @@ var expect = chai.expect
     hello: 'world'
   };
 
+// Remove everything from localStorage
+Object.keys(window.localStorage).forEach(function (k) {
+  window.localStorage.removeItem(k);
+});
+
 
 describe('ls Module', function () {
 
@@ -146,6 +151,22 @@ describe('ls Module', function () {
         expect(res).to.equal(TEST_STR);
       });
     });
+
+    it('Should modify the value before being set', function () {
+      var adp = window.ls.getAdapter({
+        preSave: function (val, callback) {
+          callback(null, val.replace('evan', ''));
+        }
+      });
+
+      adp.set(TEST_STR_KEY, 'evanshortiss', function (err) {
+        expect(err).to.be.null;
+        adp.get(TEST_STR_KEY, function (e, res) {
+          expect(e).to.be.null;
+          expect(res).to.equal('shortiss');
+        });
+      });
+    });
   });
 
 
@@ -178,6 +199,22 @@ describe('ls Module', function () {
           expect(err).to.be.null;
           expect(res).to.be.a('string');
           expect(res).to.equal(TEST_STR);
+        });
+      });
+    });
+
+    it ('Should modify an item during retreival', function () {
+      var adp = window.ls.getAdapter({
+        postLoad: function (val, callback) {
+          callback(null, val.replace('evan', ''));
+        }
+      });
+
+      adp.set(TEST_STR_KEY, 'evanshortiss', function (err) {
+        expect(err).to.be.null;
+        adp.get(TEST_STR_KEY, function (e, res) {
+          expect(e).to.be.null;
+          expect(res).to.equal('shortiss');
         });
       });
     });
